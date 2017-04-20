@@ -16,7 +16,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('./public'));
 
 
-// REVIEW: Routes for requesting HTML resources
 app.get('/new', function(request, response) {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // Put your response here...
@@ -30,7 +29,6 @@ app.get('/new', function(request, response) {
 });
 
 
-// REVIEW: Routes for making API calls to use CRUD Operations on our database
 app.get('/articles', function(request, response) {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // Put your response here...
@@ -176,11 +174,6 @@ function loadArticles() {
   // R, U
   client.query('SELECT COUNT(*) FROM articles')
   .then(result => {
-    // REVIEW: result.rows is an array of objects that Postgres returns as a response to a query.
-    //         If there is nothing on the table, then result.rows[0] will be undefined, which will
-    //         make count undefined. parseInt(undefined) returns NaN. !NaN evaluates to true.
-    //         Therefore, if there is nothing on the table, line 151 will evaluate to true and
-    //         enter into the code block.
     if(!parseInt(result.rows[0].count)) {
       fs.readFile('./public/data/hackerIpsum.json', (err, fd) => {
         JSON.parse(fd.toString()).forEach(ele => {
